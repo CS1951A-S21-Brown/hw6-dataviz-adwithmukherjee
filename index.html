@@ -7,10 +7,41 @@
         <link rel="stylesheet" href="main.css"/>
         <!--Feel free to add more CSS files as needed-->
         <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+        <style type="text/css">
+            /* Custom style rules go here. We've included a few, but feel free to write your own! */
+            button:focus {
+                outline: 0 !important;
+            }
+            svg {
+                display: block;
+                margin: 0 auto;
+                font: 10px sans-serif;
+            }
+            .tooltip {
+                position: absolute;
+                background-color: black;
+                font-size: 12px;
+                min-width: 150px;
+                padding: 10px;
+                width:  auto;
+                height: auto;
+            }
+            .buttonContainer {
+                display: flex;
+                align-content: space-around;
+                justify-content: center;
+            }
+            .writeup {
+                padding: 20px;
+                margin: 20px
+            }
+        
+      
+        </style>
     </head>
 <body>
     <div class="header">
-        <h3>Assignment 6 &laquo; Data Visualization Dashboard &raquo;</h3>
+        <h3>Assignment 6 &laquo; Visualizing Football Match Data  &raquo;</h3>
     </div>
     <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
@@ -19,9 +50,59 @@
             <div id="graph2"></div><br/>
         </div>
         <div class="col-lg-6">
-            <div id="graph3"></div>
+            <div class = "buttonContainer">
+                <button type="button" class="btn btn-info" onclick="setData('2014')">2014 World Cup</button>
+                <div>&nbsp;</div>
+                <button type="button" class="btn btn-info" onclick="setData('2018')">2018 World Cup</button>
+            </div>
+            <div id="graph3"></div> 
         </div>
-    </div>
+        <div class="writeup">
+            w
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            Graph 2 uses sample code from <a href="https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html">here</a> to get started with the map<br/><br/>
+
+            1. Graph 1 (top left) answers the first question: how many football games are there per year? It includes a labeled bar chart 
+            "Football Matches Played Worldwide Per Year" that clearly displays the number of matches on the y-axis that occur every year. 
+            Graph 2(bottom left) answers the second question: what are the top winning nations? Graph 2 answers this in two ways: first, with 
+            a choropleth that uses color to signify winning percentage and second, with a bar chart that explicitly shows the countries with 
+            the top 10 winning percentages that have played a significant number of games. On the map, darker colors indicate higher winning percentages. 
+            For more detail, the choropleth uses a tooltip, which elaborates on each country's match statistics. 
+            Graph 3 answers the question "what makes a successfull World Cup team?" for the purpose of identifying competitive teams. 
+            The scatter plot displays two metrics for every team that won at least one game in the World Cup: their strength of victory (winning percentage 
+            of opponents a team has beaten), and the number of wins. The relationship to be noted is that successful teams appear at the top right 
+            of the scatter plot (high SoV and wins), which is further reinforced by the darker color.  
+            <br/><br/>
+            2. d3 aided my visualization by 1) providing easy, intuitive ways to style important data visualization elements like 
+            color gradients, tooltips, and the cholorpleth using .style(). This came in extremely handy for translating 
+            objects, changing the opacity and fill of objects, and more. 
+            2) The most useful aspect of d3 is the ability to use scaleLinear, 
+            scaleBand, scaleOrdinal or similar to map input data to pixel values very easily using the .domain() and .range() calls, eliminating the need to create custom functions
+            to perform this interpolation. 
+            3) The ability to add svg groups, text elements, and more to the DOM with a single javascript call eliminated the need to use any HTML at all, 
+            which is much cleaner and intuitive. 
+            <br/><br/>
+            3. d3 is not the best choice for data visualization when there is 1) a lot of preprocesing to be done on the input data. For example, 
+            I wrote several bulky javscript functions to clean and strip the csv data. Much 
+            better suited to that task is Python, specifically the MapReduce model. It may also not be ideal for 2) a visualization that includes a lot of text, 
+            since the svg-based d3 can't handle text wrapping as easily as HTML and CSS. 3) d3.js may also not be ideal for extremely simple line or scatter plots 
+            that don't need to be excessively styled (for protoyping, for example). In this situation, a more lightweight solution like matplot.lib may be preferable. 
+
+            <br/><br/>
+            4. My dashboard uses shades of colors rather than discrete colors to demonstrate linear relationship (as in the case of the map visualization), so it 
+            has the advantage of being accessible to all but those with achromatopsia. For the light shades of blue that indicate small values (as in the scatter plot), users may have difficulty 
+            differentiating from the white background. I use clear headings and text with high contrast to their backgrounds. In the 
+            interest of creating a quickly consumable visualization for any kind of user, I could improve my visualizations with a short, clear summary the story the 
+            information tells. I would have to ensure that this text resides within an svg group to improve readability with assitive technologies. I could further improve 
+            my visualization by supplementing the graphics (like the map) with alt text.
+
+            <br/><br/>
+            5. While I was creating the map visualization, I realized, to internalize the data better, a user may need an accompanying
+            bar chart to explicitly show the top 10 countries. When creating this bar chart, however, I was faced with a tradeoff. 
+            I could make a larger chart with bigger text that may obscure parts of the map, or I could make a smaller, less accessible 
+            chart with appropriate spacing and margins. I was limited by the particular visualization I chose to use, and perhaps should have 
+            separated the two graphs completely to aid with accessibility. 
+        </div>
     <!--Feel free to add more JavaScript files as needed-->
     <script type="text/javascript" src="main.js"></script>
 </body>
